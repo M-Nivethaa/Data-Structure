@@ -1,0 +1,52 @@
+#include <stdio.h>
+        scanf(" %c", &choice);
+
+        switch (choice) {
+            case '1':
+                printf("Enter song title: ");
+                scanf(" %[^\n]", title);
+                printf("Enter artist: ");
+                scanf(" %[^\n]", artist);
+                printf("Enter album: ");
+                scanf(" %[^\n]", album);
+                printf("Enter genre: ");
+                scanf(" %[^\n]", genre);
+                insertEnd(&playlist, createSong(title, artist, album, genre));
+                break;
+            case '2':
+                printf("Enter title of the song to remove: ");
+                scanf(" %[^\n]", title);
+                removeSong(&playlist, title);
+                break;
+            case '3':
+                printf("Enter title of the song to mark as favorite: ");
+                scanf(" %[^\n]", title);
+                markAsFavorite(playlist, title);
+                break;
+            case '4':
+                printf("Enter filter type (album/artist/genre): ");
+                scanf(" %[^\n]", filterType);
+                printf("Enter filter value: ");
+                scanf(" %[^\n]", filterValue);
+                displayFavorites(playlist, filterType, filterValue);
+                break;
+            case '5':
+                displayPlaylist(playlist);
+                break;
+            case '6':
+                printf("Goodbye!\n");
+                break;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    } while (choice != '6');
+
+    // Clear playlist
+    while (playlist != NULL) {
+        Song* temp = playlist;
+        playlist = playlist->next;
+        free(temp);
+    }
+
+    return 0;
+}
